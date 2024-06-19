@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISDB-T/Tb Bitrate Calculation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .dropdown {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .layer-select, .modulation-select, .code-rate-select {
+            width: 100%;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+    <script>
+        function checkSegments() {
+            const segmentA = parseInt(document.getElementById('segments-a').value);
+            const segmentB = parseInt(document.getElementById('segments-b').value);
+            const segmentC = parseInt(document.getElementById('segments-c').value);
+            const totalSegments = segmentA + segmentB + segmentC;
+
+            const warningMessage = document.getElementById('warning-message');
+            if (totalSegments > 13) {
+                warningMessage.style.display = 'block';
+            } else {
+                warningMessage.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>ISDB-T/Tb Bitrate Calculation: Layer A, B and C bitrates calculation</h1>
+        <div class="dropdown">
+            <label for="guard-interval">Guard Interval:</label>
+            <select id="guard-interval">
+                <option value="1/4">1/4</option>
+                <option value="1/8">1/8</option>
+                <option value="1/16">1/16</option>
+                <option value="1/32">1/32</option>
+            </select>
+        </div>
+        <div class="dropdown">
+            <label for="mode">Mode:</label>
+            <select id="mode">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        
+        <h2>Layer settings</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>LAYER</th>
+                    <th>SEGMENTS</th>
+                    <th>MODULATION</th>
+                    <th>CODE RATE</th>
+                    <th>BIT RATE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>LAYER A</td>
+                    <td>
+                        <select class="layer-select" id="segments-a" onchange="checkSegments()">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="modulation-select">
+                            <option value="DQPSK">DQPSK</option>
+                            <option value="QPSK">QPSK</option>
+                            <option value="16QAM">16QAM</option>
+                            <option value="64QAM">64QAM</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="code-rate-select">
+                            <option value="1/2">1/2</option>
+                            <option value="2/3">2/3</option>
+                            <option value="3/4">3/4</option>
+                            <option value="5/6">5/6</option>
+                            <option value="7/8">7/8</option>
+                        </select>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>LAYER B</td>
+                    <td>
+                        <select class="layer-select" id="segments-b" onchange="checkSegments()">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="modulation-select">
+                            <option value="DQPSK">DQPSK</option>
+                            <option value="QPSK">QPSK</option>
+                            <option value="16QAM">16QAM</option>
+                            <option value="64QAM">64QAM</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="code-rate-select">
+                            <option value="1/2">1/2</option>
+                            <option value="2/3">2/3</option>
+                            <option value="3/4">3/4</option>
+                            <option value="5/6">5/6</option>
+                            <option value="7/8">7/8</option>
+                        </select>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>LAYER C</td>
+                    <td>
+                        <select class="layer-select" id="segments-c" onchange="checkSegments()">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="modulation-select">
+                            <option value="DQPSK">DQPSK</option>
+                            <option value="QPSK">QPSK</option>
+                            <option value="16QAM">16QAM</option>
+                            <option value="64QAM">64QAM</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="code-rate-select">
+                            <option value="1/2">1/2</option>
+                            <option value="2/3">2/3</option>
+                            <option value="3/4">3/4</option>
+                            <option value="5/6">5/6</option>
+                            <option value="7/8">7/8</option>
+                        </select>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="warning-message" class="warning">
+            La suma de los segmentos no puede ser mayor a 13.
+        </div>
+    </div>
+</body>
+</html>
